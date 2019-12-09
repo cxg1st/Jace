@@ -1,0 +1,110 @@
+<html>
+		<style>
+				body {
+					margin: 0;
+					font-family: sans-serif;
+				}
+				
+				.hero {
+					/* Sizing */
+					width: 100vw;
+					height: 100vh;
+					
+					/* Flexbox stuff */
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					
+					/* Text styles */
+					text-align: center;
+					color: white;
+					
+					/* Background styles */
+					background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://picfiles.alphacoders.com/296/296339.jpg');
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-attachment: fixed;
+				}
+				
+				.hero h1 {
+					/* Text styles */
+					font-size: 5em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+			}
+				
+				.hero h2 {
+					/* Text styles */
+					font-size: 2em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+
+			}
+				
+				.hero li {
+					/* Text styles */
+					font-size: 2em;
+					font-weight: bold;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+				
+				.hero .btn {
+					/* Positioning and sizing */
+					display: block;
+					width: 200px;
+					
+					/* Padding and margins */
+					padding: 1em;
+					margin-top: 50px;
+					margin-left: auto;
+					margin-right: auto;
+					
+					/* Text styles */
+					color: white;
+					text-decoration: none;
+					font-size: 1.5em;
+					
+					/* Border styles */
+					border: 3px solid white;
+					border-radius: 20px;
+					
+					/* Background styles */
+					background-color: rgba(112, 132, 219, 0.8);
+				}
+				</style>
+<head>
+	<title>BudayaKB Lite</title>
+</head>
+
+<body>
+	 {% include 'includes/_navbar.html' %}
+	 <section class="hero">
+			<div class="hero-inner">
+	<h1>Impor Budaya</h1>
+
+	<form method="POST", action="/imporBudaya" enctype = "multipart/form-data">
+		<h2>Pilih file CSV berisi data BudayaKB</h2>
+		<input type="file"  name=file required  >
+		<input type=submit  value="Import Data">
+	</form>
+	
+
+	{% if result is defined and result >0: %}
+	<h3>{{ result }} data budaya telah terimpor dari file "{{ fname }}"</h3>
+	{%elif error is defined%}
+	<h3>{{error}}</h3>
+	{% endif %}
+</div>
+</section>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<html>
+        <style>
+				body {
+					margin: 0;
+					font-family: sans-serif;
+				}
+				
+				.hero {
+					/* Sizing */
+					width: 100vw;
+					height: 100vh;
+					
+					/* Flexbox stuff */
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					
+					/* Text styles */
+					text-align: center;
+					color: white;
+					
+					/* Background styles */
+					background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://picfiles.alphacoders.com/319/319783.jpg');
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-attachment: fixed;
+				}
+				
+				.hero h1 {
+					/* Text styles */
+					font-size: 5em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+			}
+				
+				.hero h2 {
+					/* Text styles */
+                    font-size: 2em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+
+			}
+				
+				.hero li {
+					/* Text styles */
+					font-size: 2em;
+					font-weight: bold;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+				
+				.hero .btn {
+					/* Positioning and sizing */
+					display: block;
+					width: 200px;
+					
+					/* Padding and margins */
+					padding: 1em;
+					margin-top: 50px;
+					margin-left: auto;
+					margin-right: auto;
+					
+					/* Text styles */
+					color: white;
+					text-decoration: none;
+					font-size: 1.5em;
+					
+					/* Border styles */
+					border: 3px solid white;
+					border-radius: 20px;
+					
+					/* Background styles */
+					background-color: rgba(112, 132, 219, 0.8);
+				}
+				</style>
+<head>
+	<title>BudayaKB Lite</title>
+</head>
+
+<body>
+     {% include 'includes/_navbar.html' %}
+    <section class="hero">
+    <div class="hero-inner">
+    <h1>Kriteria Pencarian Statistik Data Budaya</h1>
+    <form method="POST", action="/statsBudaya">
+    <table align="center">
+        <tr>
+            <td>
+                <select name="cari">
+                    <option value="All">All</option>
+                    <option value="Tipe">Tipe Budaya</option>
+                    <option value="Provinsi">Asal Provinsi Budaya</option>>
+                </select>
+            </td>
+        </tr>
+        <tr>
+                <td align="center"><input type=submit value="Tampilkan"></td>
+        </tr>
+    </table>
+{%if res and All%}
+    <h3>Budaya KB memiliki total {{result}} data budaya. </h3>
+{%elif res and Tipe%}
+    <h3>Statistik Data Budaya berdasarkan Tipe Budaya. </h3>
+    <table border=5 align="center" bordercolor=white>   
+    <tr>
+        <th><font color="white" size='8'>Kriteria</font></th>
+        <th><font color="white" size='8'>Jumlah</font></th>
+    </tr>
+    {%for k,v in result.items()%}
+    <tr>
+        <td align="center"><font color="white" size='5'>{{k}}</font></td>
+        <td align="center"><font color="white" size='5'>{{v}}</font></td>
+    </tr>
+    {%endfor%}
+{%elif res and Prov%}
+<h3>Statistik Data Budaya berdasarkan Asal Provinsi Budaya. </h3>
+    <table border=5 align="center" bordercolor=white>  
+    <tr>
+        <th><font color="white" size='8'>Kriteria</font></th>
+        <th><font color="white" size='8'>Jumlah</font></th>
+    </tr>
+    {%for k,v in result.items()%}
+    <tr>
+        <td align="center"><font color="white" size='5'>{{k}}</font></td>
+        <td align="center"><font color="white" size='5'>{{v}}</font></td>
+    </tr>
+    {%endfor%}
+{%endif%}
+</table>
+</form>
+</div>
+</section>
+</html>

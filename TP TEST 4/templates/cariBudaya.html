@@ -1,0 +1,235 @@
+<html>
+        <style>
+				body {
+					margin: 0;
+					font-family: sans-serif;
+				}
+				
+				.hero {
+					/* Sizing */
+					width: 100vw;
+					height: 100vh;
+					
+					/* Flexbox stuff */
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					
+					/* Text styles */
+					text-align: center;
+					color: white;
+					
+					/* Background styles */
+					background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://picfiles.alphacoders.com/289/289229.jpg');
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-attachment: fixed;
+				}
+				
+				.hero h1 {
+					/* Text styles */
+					font-size: 5em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+			}
+				
+				.hero h2 {
+					/* Text styles */
+                    font-size: 2em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+
+			}
+				
+				.hero li {
+					/* Text styles */
+					font-size: 2em;
+					font-weight: bold;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+				
+				.hero .btn {
+					/* Positioning and sizing */
+					display: block;
+					width: 200px;
+					
+					/* Padding and margins */
+					padding: 1em;
+					margin-top: 50px;
+					margin-left: auto;
+					margin-right: auto;
+					
+					/* Text styles */
+					color: white;
+					text-decoration: none;
+					font-size: 1.5em;
+					
+					/* Border styles */
+					border: 3px solid white;
+					border-radius: 20px;
+					
+					/* Background styles */
+					background-color: rgba(112, 132, 219, 0.8);
+				}
+				
+.table-scroll-container {
+  position: relative;
+  padding-top: 37px;
+}
+
+.table-scroll {
+  overflow-y: scroll;
+  max-height: 1000px;
+  max-width: 90vw;
+  
+/*   padding-right: 16px; */
+}
+
+.table-scroll thead {
+  position: flex;
+  display: table;
+  top: 0;
+  
+  margin-left: -1px;
+  line-height: normal;
+  /* Scroll right offset 16px + 1px border */
+  width: calc(100% - 17px);
+  table-layout: fixed;
+}
+
+.table-scroll thead th {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;  
+}
+</style>
+				
+<head>
+	<title>BudayaKB Lite</title>
+</head>
+
+<body>
+     {% include 'includes/_navbar.html' %}
+    <section class="hero">
+    <div class="hero-inner">
+    <h1>Kriteria Pencarian</h1>
+    
+    <form method="POST", action="/cariBudaya">
+    <table align="center">
+         <tr>
+            <td>
+                <select name="cari">
+                    <option value="Nama">Nama Budaya</option>
+                    <option value="Tipe">Tipe Budaya</option>
+                    <option value="Provinsi">Asal Provinsi Budaya</option>>
+                </select>
+            </td>
+            <td> <input type="text" name="cariB"> </td>
+        </tr>
+        <tr>
+            <td align="center"><input type=submit value="Cari"></td>
+        </tr>
+    </table>
+
+
+
+{%if res is defined%}
+
+{%if not result%}
+
+<h3>{{ag}} tidak ada dalam data.</h3>
+
+{%else%}
+<h3>Ditemukan {{jace}} data dengan {{hg}} : {{ag}} </h3>
+<div class="container" style="margin-top: 50px">
+	<div class="well">
+	<div class="table-scroll-container">
+	<div class="table-scroll">
+<table border=1 bordercolor=white align="center" class="table table-bordered">
+	<thead>
+    <tr>
+        <th><font color="white" size="8">Nama</font></th>
+        <th><font color="white" size="8">Tipe</font></th>
+        <th><font color="white" size="8">Provinsi</font></th>
+        <th><font color="white" size="8">URL</font></th>
+	</tr>
+	</thead>
+	{%for budaya in result%}
+	<tbody>
+    <tr>
+        <td align="center"><font color="white" size="5">{{budaya.nama}}</font></td>
+        <td align="center"><font color="white" size="5">{{budaya.tipe}}</font></td>
+        <td align="center"><font color="white" size="5">{{budaya.prov}}</font></td>
+        <td align="center"><font color="white" size="5">{{budaya.url}}</font></td>
+	</tr>
+</tbody>
+    {%endfor%}
+{%endif%}
+{%endif%}
+
+</table>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</section>
+<script>
+(function() {
+  var tables = document.querySelectorAll('.table-scroll table');
+  
+  [].forEach.call(tables, function(table) {
+    var headCells = table.querySelectorAll('thead tr th');
+    var bodyCells = table.querySelectorAll('tbody tr:first-child td');
+    
+    document.addEventListener("DOMContentLoaded", setTableHead);
+    window.addEventListener('resize', setTableHead, true);
+    table.addEventListener('updateTableHead', setTableHead);  
+    
+    function setTableHead() {
+      for (var h = 0, b=0; h < headCells.length; h++, b++) {
+        
+        var colspan = headCells[h].getAttribute('colspan')        
+        if (colspan) {
+          colspan = parseInt(colspan);
+          var sumWidth = 0;
+          for (var c = 0; c < colspan; c++ ) {
+            sumWidth += bodyCells[b+c].offsetWidth
+          }
+          headCells[h].style.width = sumWidth;
+          b += c-1;
+        } else {
+          headCells[h].style.width = bodyCells[b].offsetWidth + 'px';
+        }
+      }
+    };
+  });
+  
+})();
+
+
+function clickUpdateTableHead() {
+  var event = new CustomEvent("updateTableHead");
+  var table = document.querySelector('.table-scroll:first-child table');
+  table.dispatchEvent(event);
+}
+
+function clickRemoveTableHead() {
+  [].forEach.call(document.querySelectorAll('.table-scroll:first-child table th'), function(th) {
+    th.style.width = '';
+  });
+}
+
+</script>
+</html>

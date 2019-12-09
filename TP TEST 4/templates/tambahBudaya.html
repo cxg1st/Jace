@@ -1,0 +1,137 @@
+<html>
+        <style>
+				body {
+					margin: 0;
+					font-family: sans-serif;
+				}
+				
+				.hero {
+					/* Sizing */
+					width: 100vw;
+					height: 100vh;
+					
+					/* Flexbox stuff */
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					
+					/* Text styles */
+					text-align: center;
+					color: white;
+					
+					/* Background styles */
+					background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://picfiles.alphacoders.com/308/308815.jpg');
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-attachment: fixed;
+				}
+				
+				.hero h1 {
+					/* Text styles */
+					font-size: 5em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+			}
+				
+				.hero h2 {
+					/* Text styles */
+                    font-size: 2em;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+
+			}
+				
+				.hero li {
+					/* Text styles */
+					font-size: 2em;
+					font-weight: bold;
+					
+					/* Margins */
+					margin-top: 0;
+					margin-bottom: 0.5em;
+				}
+				
+				.hero .btn {
+					/* Positioning and sizing */
+					display: block;
+					width: 200px;
+					
+					/* Padding and margins */
+					padding: 1em;
+					margin-top: 50px;
+					margin-left: auto;
+					margin-right: auto;
+					
+					/* Text styles */
+					color: white;
+					text-decoration: none;
+					font-size: 1.5em;
+					
+					/* Border styles */
+					border: 3px solid white;
+					border-radius: 20px;
+					
+					/* Background styles */
+					background-color: rgba(112, 132, 219, 0.8);
+				}
+				</style>
+<head>
+	<title>BudayaKB Lite</title>
+</head>
+
+<body>
+     {% include 'includes/_navbar.html' %}
+    <section class="hero">
+	<div class="hero-inner">
+    <h1>Tambah Budaya</h1>
+    
+    <form method="POST", action="/tambahBudaya">
+    <h2>Masukkan data budaya yang akan ditambahkan ke dalam sistem</h2>
+    <table align="center"
+        <tr>
+            <td> <font color="white"><h2>Nama</h2></font></td>
+            <td> <input type="text" name="Nama" required><br> </td>
+            
+        </tr>
+        <tr>
+                <td><font color="white"><h2>Tipe</h2></font></td>
+            <td> <input type="text" name="tipe" required><br></td>
+        </tr>
+        <tr>
+            <td><font color="white"><h2 >Provinsi</h2></font></td>
+            <td><input type="text" name="provinsi" required><br></td>
+        </tr>
+        <tr>
+                <td><font color="white"><h2>URL Referensi</h2></font></td>
+            <td><input type="text" name="referensi" required><br></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><input type=submit value="Tambah Data" required></td>
+        </tr>
+        
+        
+    </table>
+    </form>
+
+ {%if res  %}
+ <h2>Sukses menambahkan data "{{abc}}"</h2>
+
+ {%elif error is defined%}
+ <h2>Impor File Terlebih Dahulu</h2>
+
+ {%elif spasi is defined%}
+ <h2>Input tidak boleh kosong.</h2>
+
+ {%elif res==False%}
+ <h2>Data dengan nama "{{abc}}" sudah ada</h2>
+ {%endif%}
+</body>
+</html>
